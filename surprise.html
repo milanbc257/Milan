@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secret Message with Floating Emojis</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #1f1c2c, #343148, #5b5f97, #1f1c2c);
+      background-size: 400% 400%;
+      animation: animateBG 15s ease infinite;
+      position: relative;
+    }
+
+    @keyframes animateBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .message-container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2.5rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      max-width: 700px;
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .message {
+      font-size: 1.7rem;
+      line-height: 2.2rem;
+      background: linear-gradient(to right, #fbd786, #f7797d, #c6ffdd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+
+    /* Floating emojis */
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatEmoji 12s linear infinite;
+      opacity: 0.8;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes floatEmoji {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message-container">
+    <p class="message">
+      Hey There! I hope you are doing great, 
+      And all your dream comes true one day!
+    </p>
+  </div>
+
+  <!-- Emoji elements floating -->
+  <script>
+    const emojis = ["😊", "🌟", "💫", "✨", "💖", "😄", "🥰"];
+    const count = 25;
+
+    for (let i = 0; i < count; i++) {
+      const emoji = document.createElement("div");
+      emoji.classList.add("emoji");
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      
+      // Keep emojis on left or right third of the screen to avoid message area
+      const side = Math.random() < 0.5 ? Math.random() * 30 : 70 + Math.random() * 30;
+      emoji.style.left = `${side}vw`;
+
+      emoji.style.animationDelay = Math.random() * 10 + "s";
+      emoji.style.fontSize = (1.5 + Math.random() * 1.5) + "rem";
+      document.body.appendChild(emoji);
+    }
+  </script>
+
+</body>
+</html>
